@@ -1,4 +1,4 @@
-package dev.ruchir.evolvion_hr_service.service;
+package dev.ruchir.evolvion_hr_service.service.interfaces;
 
 import dev.ruchir.evolvion_hr_service.dto.EmployeeDTO;
 import java.util.List;
