@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class EmployeeController {
 
     // Create a new employee
     @PostMapping
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<EmployeeDTO> createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
         EmployeeDTO createdEmployee = employeeService.createEmployee(employeeDTO);
         return ResponseEntity.status(201).body(createdEmployee);
     }
@@ -26,7 +27,7 @@ public class EmployeeController {
     @PutMapping("/{employeeId}")
     public ResponseEntity<EmployeeDTO> updateEmployee(
             @PathVariable Long employeeId,
-            @RequestBody EmployeeDTO employeeDTO) {
+            @Valid @RequestBody EmployeeDTO employeeDTO) {
         EmployeeDTO updatedEmployee = employeeService.updateEmployee(employeeId, employeeDTO);
         return ResponseEntity.ok(updatedEmployee);
     }
