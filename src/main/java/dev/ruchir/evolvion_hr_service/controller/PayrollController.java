@@ -1,4 +1,4 @@
-package dev.ruchir.evolvion_hr_service.controller_advise;
+package dev.ruchir.evolvion_hr_service.controller;
 
 import dev.ruchir.evolvion_hr_service.dto.PayrollDTO;
 import dev.ruchir.evolvion_hr_service.service.interfaces.PayrollService;
