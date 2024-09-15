@@ -110,6 +110,32 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(PayrollNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePayrollNotFoundException(PayrollNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "PAYROLL_NOT_FOUND",
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PayrollAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handlePayrollAlreadyExistsException(PayrollAlreadyExistsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "PAYROLL_ALREADY_EXISTS",
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
     // Handle global exceptions (fallback for any unhandled exception)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex) {
