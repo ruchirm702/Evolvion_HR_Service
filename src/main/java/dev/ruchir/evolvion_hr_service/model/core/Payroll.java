@@ -4,8 +4,7 @@ import dev.ruchir.evolvion_hr_service.model.enums.PayrollStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "payrolls")
@@ -24,7 +23,6 @@ public class Payroll extends BaseModel {
     @Column(name = "status", nullable = false)
     private PayrollStatus status;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "payment_date", nullable = false)
-    private Date paymentDate;
+    private LocalDate paymentDate;  // Updated to LocalDate
 }

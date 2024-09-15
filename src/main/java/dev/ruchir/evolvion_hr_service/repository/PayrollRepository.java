@@ -2,7 +2,6 @@ package dev.ruchir.evolvion_hr_service.repository;
 
 import dev.ruchir.evolvion_hr_service.model.core.Payroll;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.List;
