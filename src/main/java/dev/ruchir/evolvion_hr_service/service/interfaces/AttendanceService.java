@@ -10,8 +10,7 @@ public interface AttendanceService {
     AttendanceDTO updateAttendance(Long id, AttendanceDTO attendanceDTO);
     AttendanceDTO getAttendanceById(Long id);
     void deleteAttendance(Long id);
-    List<AttendanceDTO> getAttendancesByEmployee(Long employeeId);
+    List<AttendanceDTO> getAttendanceByEmployeeId(Long employeeId);
     List<AttendanceDTO> getAllAttendances();
     double calculateHoursWorked(Long employeeId);
-
 }

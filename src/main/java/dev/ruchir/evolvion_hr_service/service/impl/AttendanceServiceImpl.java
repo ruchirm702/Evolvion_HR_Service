@@ -55,7 +55,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<AttendanceDTO> getAttendancesByEmployee(Long employeeId) {
+    public List<AttendanceDTO> getAttendanceByEmployeeId(Long employeeId) {
         List<Attendance> attendances = attendanceRepository.findByEmployeeId(employeeId);
         return attendanceMapper.toDTOs(attendances);
     }
