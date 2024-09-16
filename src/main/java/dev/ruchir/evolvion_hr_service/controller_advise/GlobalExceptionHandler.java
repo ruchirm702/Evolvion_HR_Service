@@ -136,6 +136,34 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    // Handle PerformanceReviewNotFoundException
+    @ExceptionHandler(PerformanceReviewNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePerformanceReviewNotFoundException(PerformanceReviewNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "PERFORMANCE_REVIEW_NOT_FOUND",
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    // Handle PerformanceReviewAlreadyExistsException
+    @ExceptionHandler(PerformanceReviewAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handlePerformanceReviewAlreadyExistsException(PerformanceReviewAlreadyExistsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "PERFORMANCE_REVIEW_ALREADY_EXISTS",
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
     // Handle global exceptions (fallback for any unhandled exception)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex) {
