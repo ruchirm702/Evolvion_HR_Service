@@ -1,5 +1,7 @@
 package dev.ruchir.evolvion_hr_service.controller_advise;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -16,18 +18,20 @@ import java.util.UUID;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     // Handle validation errors (DTO validation)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> validationErrors = new HashMap<>();
+        logger.error("Validation error: {}", ex.getMessage());
 
-        // Collect field errors
+        Map<String, String> validationErrors = new HashMap<>();
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+
         for (FieldError fieldError : fieldErrors) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
 
-        // Create an ErrorResponse with validation errors
         ErrorResponse errorResponse = new ErrorResponse(
                 "Validation failed",
                 "VALIDATION_ERROR",
@@ -43,6 +47,8 @@ public class GlobalExceptionHandler {
     // Handle EmployeeNotFoundException
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleEmployeeNotFoundException(EmployeeNotFoundException ex) {
+        logger.error("Employee not found: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "EMPLOYEE_NOT_FOUND",
@@ -57,6 +63,8 @@ public class GlobalExceptionHandler {
     // Handle EmployeeAlreadyExistsException
     @ExceptionHandler(EmployeeAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleEmployeeAlreadyExistsException(EmployeeAlreadyExistsException ex) {
+        logger.error("Employee already exists: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "EMPLOYEE_ALREADY_EXISTS",
@@ -71,6 +79,8 @@ public class GlobalExceptionHandler {
     // Handle InvalidEmployeeDataException
     @ExceptionHandler(InvalidEmployeeDataException.class)
     public ResponseEntity<ErrorResponse> handleInvalidEmployeeDataException(InvalidEmployeeDataException ex) {
+        logger.error("Invalid employee data: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "INVALID_EMPLOYEE_DATA",
@@ -85,6 +95,8 @@ public class GlobalExceptionHandler {
     // Handle DepartmentNotFoundException
     @ExceptionHandler(DepartmentNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleDepartmentNotFoundException(DepartmentNotFoundException ex) {
+        logger.error("Department not found: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "DEPARTMENT_NOT_FOUND",
@@ -99,6 +111,8 @@ public class GlobalExceptionHandler {
     // Handle DepartmentAlreadyExistsException
     @ExceptionHandler(DepartmentAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleDepartmentAlreadyExistsException(DepartmentAlreadyExistsException ex) {
+        logger.error("Department already exists: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "DEPARTMENT_ALREADY_EXISTS",
@@ -110,8 +124,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    // Handle PayrollNotFoundException
     @ExceptionHandler(PayrollNotFoundException.class)
     public ResponseEntity<ErrorResponse> handlePayrollNotFoundException(PayrollNotFoundException ex) {
+        logger.error("Payroll not found: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "PAYROLL_NOT_FOUND",
@@ -123,8 +140,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    // Handle PayrollAlreadyExistsException
     @ExceptionHandler(PayrollAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handlePayrollAlreadyExistsException(PayrollAlreadyExistsException ex) {
+        logger.error("Payroll already exists: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "PAYROLL_ALREADY_EXISTS",
@@ -139,6 +159,8 @@ public class GlobalExceptionHandler {
     // Handle PerformanceReviewNotFoundException
     @ExceptionHandler(PerformanceReviewNotFoundException.class)
     public ResponseEntity<ErrorResponse> handlePerformanceReviewNotFoundException(PerformanceReviewNotFoundException ex) {
+        logger.error("Performance review not found: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "PERFORMANCE_REVIEW_NOT_FOUND",
@@ -153,6 +175,8 @@ public class GlobalExceptionHandler {
     // Handle PerformanceReviewAlreadyExistsException
     @ExceptionHandler(PerformanceReviewAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handlePerformanceReviewAlreadyExistsException(PerformanceReviewAlreadyExistsException ex) {
+        logger.error("Performance review already exists: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "PERFORMANCE_REVIEW_ALREADY_EXISTS",
@@ -164,8 +188,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    // Handle AttendanceNotFoundException
     @ExceptionHandler(AttendanceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleAttendanceNotFoundException(AttendanceNotFoundException ex) {
+        logger.error("Attendance not found: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "ATTENDANCE_NOT_FOUND",
@@ -180,6 +207,8 @@ public class GlobalExceptionHandler {
     // Handle JobPositionNotFoundException
     @ExceptionHandler(JobPositionNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleJobPositionNotFoundException(JobPositionNotFoundException ex) {
+        logger.error("Job position not found: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 "JOB_POSITION_NOT_FOUND",
@@ -191,10 +220,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-
     // Handle global exceptions (fallback for any unhandled exception)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex) {
+        logger.error("An unexpected error occurred: {}", ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 "An unexpected error occurred.",
                 "INTERNAL_SERVER_ERROR",
