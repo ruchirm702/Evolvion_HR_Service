@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "leave_requests")
@@ -22,13 +22,15 @@ public class LeaveRequest extends BaseModel {
     @Column(name = "leave_type", nullable = false)
     private LeaveType leaveType;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "start_date", nullable = false)
-    private LocalDate startDate;
+    private Date startDate;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "end_date", nullable = false)
-    private LocalDate endDate;
+    private Date endDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private LeaveRequestStatus status;
+    private LeaveRequestStatus status; // Enum type for status
 }
