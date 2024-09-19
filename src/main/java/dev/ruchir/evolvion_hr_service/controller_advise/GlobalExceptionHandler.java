@@ -220,6 +220,54 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    // Handle LeaveRequestNotFoundException
+    @ExceptionHandler(LeaveRequestNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleLeaveRequestNotFoundException(LeaveRequestNotFoundException ex) {
+        logger.error("Leave request not found: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "LEAVE_REQUEST_NOT_FOUND",
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    // Handle LeaveRequestAlreadyProcessedException
+    @ExceptionHandler(LeaveRequestAlreadyProcessedException.class)
+    public ResponseEntity<ErrorResponse> handleLeaveRequestAlreadyProcessedException(LeaveRequestAlreadyProcessedException ex) {
+        logger.error("Leave request already processed: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "LEAVE_REQUEST_ALREADY_PROCESSED",
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    // Handle InvalidLeaveRequestDataException
+    @ExceptionHandler(InvalidLeaveRequestDataException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidLeaveRequestDataException(InvalidLeaveRequestDataException ex) {
+        logger.error("Invalid leave request data: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "INVALID_LEAVE_REQUEST_DATA",
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     // Handle global exceptions (fallback for any unhandled exception)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex) {
