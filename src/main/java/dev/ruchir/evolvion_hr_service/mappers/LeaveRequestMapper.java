@@ -11,6 +11,7 @@ import java.util.List;
 public interface LeaveRequestMapper {
 
     LeaveRequestMapper INSTANCE = Mappers.getMapper(LeaveRequestMapper.class);
+
     LeaveRequestDTO toDTO(LeaveRequest leaveRequest);
     LeaveRequest toEntity(LeaveRequestDTO leaveRequestDTO);
     List<LeaveRequestDTO> toDTOs(List<LeaveRequest> leaveRequests);

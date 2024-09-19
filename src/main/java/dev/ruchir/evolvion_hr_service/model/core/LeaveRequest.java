@@ -1,11 +1,12 @@
 package dev.ruchir.evolvion_hr_service.model.core;
 
+import dev.ruchir.evolvion_hr_service.model.enums.LeaveRequestStatus;
 import dev.ruchir.evolvion_hr_service.model.enums.LeaveType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "leave_requests")
@@ -21,14 +22,13 @@ public class LeaveRequest extends BaseModel {
     @Column(name = "leave_type", nullable = false)
     private LeaveType leaveType;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "start_date", nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "end_date", nullable = false)
-    private Date endDate;
+    private LocalDate endDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private String status; // Can be pending, approved, rejected
+    private LeaveRequestStatus status;
 }
