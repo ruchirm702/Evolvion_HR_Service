@@ -8,7 +8,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long> {
+public interface
+LeaveRequestRepository extends JpaRepository<LeaveRequest, Long> {
 
     // Find leave request by ID
     Optional<LeaveRequest> findById(Long id);
