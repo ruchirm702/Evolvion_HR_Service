@@ -267,6 +267,70 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+    // Handle TrainingProgramNotFoundException
+    @ExceptionHandler(TrainingProgramNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTrainingProgramNotFoundException(TrainingProgramNotFoundException ex) {
+        logger.error("Training program not found: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "TRAINING_PROGRAM_NOT_FOUND",
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    // Handle TrainingProgramAlreadyExistsException
+    @ExceptionHandler(TrainingProgramAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleTrainingProgramAlreadyExistsException(TrainingProgramAlreadyExistsException ex) {
+        logger.error("Training program already exists: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "TRAINING_PROGRAM_ALREADY_EXISTS",
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    // Handle InvalidTrainingProgramDataException
+    @ExceptionHandler(InvalidTrainingProgramDataException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidTrainingProgramDataException(InvalidTrainingProgramDataException ex) {
+        logger.error("Invalid training program data: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "INVALID_TRAINING_PROGRAM_DATA",
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    // Handle TrainingParticipantNotFoundException
+    @ExceptionHandler(TrainingParticipantNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTrainingParticipantNotFoundException(TrainingParticipantNotFoundException ex) {
+        logger.error("Training participant not found: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                "TRAINING_PARTICIPANT_NOT_FOUND",
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                UUID.randomUUID().toString(),
+                null
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+git
 
     // Handle global exceptions (fallback for any unhandled exception)
     @ExceptionHandler(Exception.class)
