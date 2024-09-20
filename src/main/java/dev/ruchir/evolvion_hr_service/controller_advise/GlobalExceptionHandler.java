@@ -330,7 +330,7 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
-git
+
 
     // Handle global exceptions (fallback for any unhandled exception)
     @ExceptionHandler(Exception.class)
